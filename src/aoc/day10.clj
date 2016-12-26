@@ -39,8 +39,9 @@
     (proc st id bot)))
 
 (defn resolve []
-  (let [steps (take-while identity (iterate step (reduce infuse {} (readit))))]
-    (count steps)
+  (let [steps (take-while identity (iterate step (reduce infuse {} (readit))))
+        l (last steps)]
+    (apply * (mapcat #(get-in l [:output % :values]) (range 0 3)))
     )
   )
 
